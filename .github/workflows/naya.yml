@@ -1,11 +1,7 @@
 name: Integration tests
 
 on:
-  push:
-    branches:
-      - master
-  pull_request_target:
-    types: [opened, synchronize, reopened]
+  workflow_dispatch:
 
 jobs:
 
@@ -13,21 +9,15 @@ jobs:
   # PYTHON JOB
   # ============================================================
 
-  build:
+  python-tests:
     runs-on: ubuntu-22.04
-    if: github.event.pull_request.draft == false
-    env:
-      SPOTIPY_CLIENT_ID: ${{ secrets.SPOTIPY_CLIENT_ID }}
-      SPOTIPY_CLIENT_SECRET: ${{ secrets.SPOTIPY_CLIENT_SECRET }}
+
     strategy:
       matrix:
         python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
 
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.pull_request.head.ref }}
-          repository: ${{ github.event.pull_request.head.repo.full_name }}
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
@@ -50,19 +40,15 @@ jobs:
 
   node-install:
     runs-on: ubuntu-22.04
-    if: github.event.pull_request.draft == false
 
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.pull_request.head.ref }}
-          repository: ${{ github.event.pull_request.head.repo.full_name }}
 
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'   # built-in cache support
+          cache: 'npm'
 
       - name: Install Node dependencies
         run: npm ci --legacy-peer-deps
@@ -74,13 +60,9 @@ jobs:
 
   go-install:
     runs-on: ubuntu-22.04
-    if: github.event.pull_request.draft == false
 
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.pull_request.head.ref }}
-          repository: ${{ github.event.pull_request.head.repo.full_name }}
 
       - name: Set up Go
         uses: actions/setup-go@v5
