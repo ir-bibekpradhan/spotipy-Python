@@ -17,13 +17,6 @@ jobs:
         python-version: ["3.11"]
 
     steps:
-      # ============= InvisiRisk Setup =============
-      - name: Setup PSE
-        uses: invisirisk/pse-action@latest
-        with:
-          api_url: "https://app.stage.invisirisk.com"
-          app_token: ${{secrets.IR_API_KEY}}
-      # ============= InvisiRisk Setup End =============
       - uses: actions/checkout@v4
 
       - name: Set up Python ${{ matrix.python-version }}
@@ -34,31 +27,11 @@ jobs:
       - name: Install Python dependencies
         run: |
           pip install -r requirements.txt
-      # ============= InvisiRisk Cleanup =============
-      - name: Cleanup PSE
-        if: always()
-        uses: invisirisk/pse-action@latest
-        with:
-          api_url: "https://app.stage.invisirisk.com"
-          cleanup: "true"
-      # ============= InvisiRisk Cleanup End =============
-
-
-  # ============================================================
-  # NODE JOB
-  # ============================================================
 
   node-install:
     runs-on: ubuntu-22.04
 
     steps:
-      # ============= InvisiRisk Setup =============
-      - name: Setup PSE
-        uses: invisirisk/pse-action@latest
-        with:
-          api_url: "https://app.stage.invisirisk.com"
-          app_token: ${{secrets.IR_API_KEY}}
-      # ============= InvisiRisk Setup End =============
       - uses: actions/checkout@v4
 
       - name: Set up Node
@@ -68,32 +41,7 @@ jobs:
 
       - name: Install Node dependencies
         run: npm install --legacy-peer-deps
-      # ============= InvisiRisk Cleanup =============
-      - name: Cleanup PSE
-        if: always()
-        uses: invisirisk/pse-action@latest
-        with:
-          api_url: "https://app.stage.invisirisk.com"
-          cleanup: "true"
-      # ============= InvisiRisk Cleanup End =============
 
-
-  # ============================================================
-  # GO JOB
-  # ============================================================
-
-  go-install:
-    runs-on: ubuntu-22.04
-
-    steps:
-      # ============= InvisiRisk Setup =============
-      - name: Setup PSE
-        uses: invisirisk/pse-action@latest
-        with:
-          api_url: "https://app.stage.invisirisk.com"
-          app_token: ${{secrets.IR_API_KEY}}
-      # ============= InvisiRisk Setup End =============
-      - uses: actions/checkout@v4
 
       - name: Set up Go
         uses: actions/setup-go@v5
@@ -105,11 +53,3 @@ jobs:
         run: |
           go mod tidy
           go mod download
-      # ============= InvisiRisk Cleanup =============
-      - name: Cleanup PSE
-        if: always()
-        uses: invisirisk/pse-action@latest
-        with:
-          api_url: "https://app.stage.invisirisk.com"
-          cleanup: "true"
-      # ============= InvisiRisk Cleanup End =============
