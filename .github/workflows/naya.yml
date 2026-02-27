@@ -73,7 +73,7 @@ jobs:
 
       - name: Install Go dependencies
         run: |
-          go mod install
+          go get
       # ============= InvisiRisk Cleanup =============
       - name: Cleanup PSE
         if: always()
