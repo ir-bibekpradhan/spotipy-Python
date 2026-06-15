@@ -33,13 +33,7 @@ jobs:
       - name: Install Python dependencies
         run: |
           pip install -r requirements.txt
-      # ============= InvisiRisk Cleanup =============
-      - name: Cleanup PSE
-        if: always()
-        uses: invisirisk/pse-action@latest
-        with:
-          cleanup: "true"
-      # ============= InvisiRisk Cleanup End =============
+
 
   node-install:
     runs-on: ubuntu-22.04
@@ -71,10 +65,4 @@ jobs:
       - name: Install Go dependencies
         run: |
           go mod download all
-      # ============= InvisiRisk Cleanup =============
-      - name: Cleanup PSE
-        if: always()
-        uses: invisirisk/pse-action@latest
-        with:
-          cleanup: "true"
-      # ============= InvisiRisk Cleanup End =============
+
