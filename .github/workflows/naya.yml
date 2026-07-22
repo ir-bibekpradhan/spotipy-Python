@@ -21,7 +21,7 @@ jobs:
       - name: Setup PSE
         uses: invisirisk/pse-action@develop
         with:
-          api_url: "app.dev.invisirisk.com"
+          api_url: "https://app.dev.invisirisk.com"
           app_token: ${{secrets.IR_API_KEY}}
       # ============= InvisiRisk Setup End =============
       - uses: actions/checkout@v4
@@ -42,7 +42,7 @@ jobs:
       - name: Setup PSE
         uses: invisirisk/pse-action@develop
         with:
-          api_url: "app.dev.invisirisk.com"
+          api_url: "https://app.dev.invisirisk.com"
           app_token: ${{secrets.IR_API_KEY}}
       # ============= InvisiRisk Setup End =============
       - uses: actions/checkout@v4
