@@ -21,7 +21,7 @@ jobs:
       - name: Setup PSE
         uses: invisirisk/pse-action@develop
         with:
-          api_url: "https://app.dev.invisirisk.com"
+          api_url: "app.dev.invisirisk.com"
           app_token: ${{secrets.IR_API_KEY}}
       # ============= InvisiRisk Setup End =============
       - uses: actions/checkout@v4
@@ -34,8 +34,6 @@ jobs:
       - name: Install Python dependencies
         run: |
           pip install -r requirements.txt
-
-
   node-install:
     runs-on: ubuntu-22.04
 
@@ -44,7 +42,7 @@ jobs:
       - name: Setup PSE
         uses: invisirisk/pse-action@develop
         with:
-          api_url: "https://app.dev.invisirisk.com"
+          api_url: "app.dev.invisirisk.com"
           app_token: ${{secrets.IR_API_KEY}}
       # ============= InvisiRisk Setup End =============
       - uses: actions/checkout@v4
@@ -67,4 +65,3 @@ jobs:
       - name: Install Go dependencies
         run: |
           go mod download all
-
